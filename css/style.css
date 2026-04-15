@@ -1,0 +1,37 @@
+body,
+.panel-default {
+  background: black;
+  color: white;
+  font-family: TimesNewRoman, Times New Roman, Times, Baskerville, Georgia, serif;
+}
+.starter-template {
+  padding: 40px 15px;
+}
+img {
+  max-width: 100%;
+}
+a {
+  color: white;
+  text-decoration: none;
+}
+a:hover,
+a:active,
+a:focus {
+  color: white;
+  text-decoration: underline;
+}
+.panel {
+  border-style: none;
+}
+textarea,
+small {
+  font-size: 14px;
+  display: block;
+  padding: 1em;
+}
+small {
+  max-width: 300px;
+  border-left: 3px dashed #990000;
+  border-right: 3px dashed #990000;
+  background: #dfdfdf;
+}
