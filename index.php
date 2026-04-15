@@ -9,12 +9,11 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <title><?php echo WATERMERK_TITLE ?></title>
-
-    <!-- Bootstrap core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Custom styles for this template -->
-    <link href="css/style.css" rel="stylesheet">
+    <?php
+    $jsfile  = 'css/style.css';
+    $version = filemtime( $jsfile );
+    ?>
+    <link href="css/style.css?v=<?php echo $version ?>" rel="stylesheet">
 </head>
 
 <body>
@@ -33,20 +32,18 @@
                                 <input type="file" name="file" id="file" required="required">
                                 <br>
                             </div>
-                            <div class="form-group">
-                                <label for="WATERMERK_titel">Titel (maximaal <?php echo WATERMERK_TITLE_LENGTH ?>
-                                    tekens)</label>
-                                <input type="text" class="form-control" name="WATERMERK_titel" id="WATERMERK_titel"
-                                       placeholder="Titel" required="required"
-                                       maxlength="<?php echo WATERMERK_TITLE_LENGTH ?>">
-                            </div>
-                            <div class="form-group">
-                                <label for="WATERMERK_titel">Titel (maximaal <?php echo WATERMERK_TITLE_LENGTH ?>
-                                    tekens)</label>
-                                <input type="text" class="form-control" name="WATERMERK_body" id="WATERMERK_body"
-                                       placeholder="ondertitel" required="required"
-                                       maxlength="<?php echo WATERMERK_TITLE_LENGTH ?>">
-                            </div>
+                            <fieldset class="form-group">
+                                <legend><?php echo WATERMERK_OPTIONS ?></legend>
+                                <ul>
+                                    <?php foreach ( $watermerken as $watermerk ): ?>
+                                        <li>
+                                            <input type="radio" name="watermerken[]" value="<?php echo $watermerk ?>"
+                                                   id="<?php echo $watermerk ?>"><label for="<?php echo $watermerk ?>"><img
+                                                    src="/watermerk/<?php echo $watermerk ?>.svg"></label>
+                                        </li>
+                                    <?php endforeach; ?>
+                                </ul>
+                            </fieldset>
 
                             <button type="submit" class="btn btn-primary"><?php echo WATERMERK_SUBMIT ?></button>
                         </form>
