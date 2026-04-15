@@ -49,7 +49,7 @@ fieldset {
     max-width: 200px;
   }
   img {
-    border: 10px solid yellow;
+    border: 10px solid black;
   }
 
   li {
@@ -58,8 +58,14 @@ fieldset {
     flex-direction: row;
     flex-wrap: nowrap;
     &:has(input:checked) {
-      background: red;
+      img {
+        border-color: green;
+      }
     }
   }
 
+}
+
+.result {
+  border: 5px solid white;
 }

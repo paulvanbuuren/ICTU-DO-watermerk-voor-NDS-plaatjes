@@ -39,6 +39,30 @@
       "oAP" : "\/.user.ini",
       "oF" : 0
     },
+    "\/archief\/generate-2.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/archief\/generate-2.php",
+      "oF" : 0
+    },
+    "\/archief\/generate.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/archief\/generate.php",
+      "oF" : 0
+    },
+    "\/archief\/index.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/archief\/index.php",
+      "oF" : 0
+    },
     "\/blur.php" : {
       "cB" : 0,
       "ft" : 8192,
@@ -66,6 +90,14 @@
       "oAP" : "\/css\/style-min.css",
       "oF" : 0,
       "pg" : 0
+    },
+    "\/display.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/display.php",
+      "oF" : 0
     },
     "\/fonts\/100normal.otf" : {
       "cB" : 0,
@@ -115,6 +147,118 @@
       "oAP" : "\/generate.php",
       "oF" : 0
     },
+    "\/generated-images\/20260415213057_b9bb3730.jpg" : {
+      "ft" : 16384,
+      "iS" : 427304,
+      "jF" : 0,
+      "oA" : 0,
+      "oAP" : "\/generated-images\/20260415213057_b9bb3730.jpg",
+      "oF" : 0,
+      "oIPL" : 0,
+      "opt" : 0,
+      "ou" : "lpckwebp-none",
+      "q" : 100,
+      "rq" : 75
+    },
+    "\/generated-images\/20260415213803_18aa60a2.jpg" : {
+      "ft" : 16384,
+      "iS" : 76010,
+      "jF" : 0,
+      "oA" : 0,
+      "oAP" : "\/generated-images\/20260415213803_18aa60a2.jpg",
+      "oF" : 0,
+      "oIPL" : 0,
+      "opt" : 0,
+      "ou" : "lpckwebp-none",
+      "q" : 100,
+      "rq" : 75
+    },
+    "\/generated-images\/20260415213923_5b2459c6.jpg" : {
+      "ft" : 16384,
+      "iS" : 84045,
+      "jF" : 0,
+      "oA" : 0,
+      "oAP" : "\/generated-images\/20260415213923_5b2459c6.jpg",
+      "oF" : 0,
+      "oIPL" : 0,
+      "opt" : 0,
+      "ou" : "lpckwebp-none",
+      "q" : 100,
+      "rq" : 75
+    },
+    "\/generated-images\/20260415214723_b1fecda6.jpg" : {
+      "ft" : 16384,
+      "iS" : 71238,
+      "jF" : 0,
+      "oA" : 0,
+      "oAP" : "\/generated-images\/20260415214723_b1fecda6.jpg",
+      "oF" : 0,
+      "oIPL" : 0,
+      "opt" : 0,
+      "ou" : "lpckwebp-none",
+      "q" : 100,
+      "rq" : 75
+    },
+    "\/generated-images\/20260415214834_7ae77bdb.jpg" : {
+      "ft" : 16384,
+      "iS" : 80007,
+      "jF" : 0,
+      "oA" : 0,
+      "oAP" : "\/generated-images\/20260415214834_7ae77bdb.jpg",
+      "oF" : 0,
+      "oIPL" : 0,
+      "opt" : 0,
+      "ou" : "lpckwebp-none",
+      "q" : 100,
+      "rq" : 75
+    },
+    "\/generated-images\/20260415215128_9227384c.jpg" : {
+      "ft" : 16384,
+      "iS" : 80007,
+      "jF" : 0,
+      "oA" : 0,
+      "oAP" : "\/generated-images\/20260415215128_9227384c.jpg",
+      "oF" : 0,
+      "oIPL" : 0,
+      "opt" : 0,
+      "ou" : "lpckwebp-none",
+      "q" : 100,
+      "rq" : 75
+    },
+    "\/generated-images\/20260415215406_b75edeab.jpg" : {
+      "ft" : 16384,
+      "iS" : 280201,
+      "jF" : 0,
+      "oA" : 0,
+      "oAP" : "\/generated-images\/20260415215406_b75edeab.jpg",
+      "oF" : 0,
+      "oIPL" : 0,
+      "opt" : 0,
+      "ou" : "lpckwebp-none",
+      "q" : 100,
+      "rq" : 75
+    },
+    "\/generated-images\/20260415215447_465647a7.jpg" : {
+      "ft" : 16384,
+      "iS" : 291315,
+      "jF" : 0,
+      "oA" : 0,
+      "oAP" : "\/generated-images\/20260415215447_465647a7.jpg",
+      "oF" : 0,
+      "oIPL" : 0,
+      "opt" : 0,
+      "ou" : "lpckwebp-none",
+      "q" : 100,
+      "rq" : 75
+    },
+    "\/generated-images\/index.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/generated-images\/index.php",
+      "oF" : 0
+    },
     "\/img\/achtergrond-tekstbox.png" : {
       "ft" : 32768,
       "iS" : 49189,
@@ -162,28 +306,6 @@
       "oAP" : "\/index.php",
       "oF" : 0
     },
-    "\/js\/bootstrap.js" : {
-      "bF" : 0,
-      "ft" : 64,
-      "ma" : 0,
-      "mi" : 1,
-      "oA" : 0,
-      "oAP" : "\/js\/bootstrap-min.js",
-      "oF" : 0,
-      "sC" : 3,
-      "tS" : 0
-    },
-    "\/js\/bootstrap.min.js" : {
-      "bF" : 0,
-      "ft" : 64,
-      "ma" : 0,
-      "mi" : 1,
-      "oA" : 0,
-      "oAP" : "\/js\/bootstrap.min-min.js",
-      "oF" : 0,
-      "sC" : 3,
-      "tS" : 0
-    },
     "\/less\/style.less" : {
       "aP" : 0,
       "bl" : 0,
@@ -210,11 +332,11 @@
       "oAP" : "\/LICENSE",
       "oF" : 0
     },
-    "\/posters\/motivational-poster-asdf-2026-04-15-16-00-06.png" : {
+    "\/posters\/digitale-overheid-2026-04-15-17-30-38.png" : {
       "ft" : 32768,
-      "iS" : 1109045,
+      "iS" : 16759,
       "oA" : 0,
-      "oAP" : "\/posters\/motivational-poster-asdf-2026-04-15-16-00-06.png",
+      "oAP" : "\/posters\/digitale-overheid-2026-04-15-17-30-38.png",
       "oF" : 0,
       "oIPL" : 0,
       "opt" : 0,
@@ -223,89 +345,11 @@
       "q" : 90,
       "rq" : 75
     },
-    "\/posters\/motivational-poster-asdf-2026-04-15-16-38-03.png" : {
+    "\/posters\/digitale-overheid-2026-04-15-17-33-42.png" : {
       "ft" : 32768,
-      "iS" : 1682163,
+      "iS" : 4300,
       "oA" : 0,
-      "oAP" : "\/posters\/motivational-poster-asdf-2026-04-15-16-38-03.png",
-      "oF" : 0,
-      "oIPL" : 0,
-      "opt" : 0,
-      "oT" : 1,
-      "ou" : "lpckwebp-none",
-      "q" : 90,
-      "rq" : 75
-    },
-    "\/posters\/motivational-poster-dit-is-de-eerste-tit-2026-04-15-15-09-22.png" : {
-      "ft" : 32768,
-      "iS" : 1497423,
-      "oA" : 0,
-      "oAP" : "\/posters\/motivational-poster-dit-is-de-eerste-tit-2026-04-15-15-09-22.png",
-      "oF" : 0,
-      "oIPL" : 0,
-      "opt" : 0,
-      "oT" : 1,
-      "ou" : "lpckwebp-none",
-      "q" : 90,
-      "rq" : 75
-    },
-    "\/posters\/motivational-poster-dit-is-de-eerste-tit-2026-04-15-15-14-19.png" : {
-      "ft" : 32768,
-      "iS" : 1497423,
-      "oA" : 0,
-      "oAP" : "\/posters\/motivational-poster-dit-is-de-eerste-tit-2026-04-15-15-14-19.png",
-      "oF" : 0,
-      "oIPL" : 0,
-      "opt" : 0,
-      "oT" : 1,
-      "ou" : "lpckwebp-none",
-      "q" : 90,
-      "rq" : 75
-    },
-    "\/posters\/motivational-poster-dit-is-de-eerste-tit-2026-04-15-15-23-33.png" : {
-      "ft" : 32768,
-      "iS" : 1497423,
-      "oA" : 0,
-      "oAP" : "\/posters\/motivational-poster-dit-is-de-eerste-tit-2026-04-15-15-23-33.png",
-      "oF" : 0,
-      "oIPL" : 0,
-      "opt" : 0,
-      "oT" : 1,
-      "ou" : "lpckwebp-none",
-      "q" : 90,
-      "rq" : 75
-    },
-    "\/posters\/motivational-poster-le-titel-2026-04-15-15-33-02.png" : {
-      "ft" : 32768,
-      "iS" : 1662041,
-      "oA" : 0,
-      "oAP" : "\/posters\/motivational-poster-le-titel-2026-04-15-15-33-02.png",
-      "oF" : 0,
-      "oIPL" : 0,
-      "opt" : 0,
-      "oT" : 1,
-      "ou" : "lpckwebp-none",
-      "q" : 90,
-      "rq" : 75
-    },
-    "\/posters\/motivational-poster-le-titel-2026-04-15-15-50-03.png" : {
-      "ft" : 32768,
-      "iS" : 1662041,
-      "oA" : 0,
-      "oAP" : "\/posters\/motivational-poster-le-titel-2026-04-15-15-50-03.png",
-      "oF" : 0,
-      "oIPL" : 0,
-      "opt" : 0,
-      "oT" : 1,
-      "ou" : "lpckwebp-none",
-      "q" : 90,
-      "rq" : 75
-    },
-    "\/posters\/motivational-poster-meh-2026-04-15-15-12-47.png" : {
-      "ft" : 32768,
-      "iS" : 1660399,
-      "oA" : 0,
-      "oAP" : "\/posters\/motivational-poster-meh-2026-04-15-15-12-47.png",
+      "oAP" : "\/posters\/digitale-overheid-2026-04-15-17-33-42.png",
       "oF" : 0,
       "oIPL" : 0,
       "opt" : 0,

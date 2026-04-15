@@ -1,17 +1,14 @@
 <?php
 /**
  * generate.php
- * Accepts an uploaded image, resizes & centre-crops it to exactly 1600x900,
- * overlays a chosen server-side watermark, saves the result to /generated-images/,
- * then redirects to display.php to show the image with a title and date.
+ * Accepts an uploaded image, resizes it to fit within 1600x900,
+ * overlays a fixed server-side watermark, and outputs a JPEG.
  *
- * Required POST fields (multipart/form-data):
- *   - image     : the photo to process (JPEG, PNG, GIF, or WebP)
- *   - title     : title text shown on the display page
- *   - watermark : watermark key – one of the keys defined in WATERMARKS below
+ * Usage (multipart/form-data POST):
+ *   - image    : the uploaded photo (JPEG, PNG, GIF, or WebP)
  *
  * Optional POST fields:
- *   - position : watermark position – center | top-left | top-right | bottom-left | bottom-right (default: bottom-left)
+ *   - position : center | top-left | top-right | bottom-left | bottom-right (default: bottom-right)
  *   - opacity  : watermark opacity 0–100 (default: 60)
  *   - padding  : pixels from edge for corner positions (default: 20)
  *   - wm_scale : watermark width as % of output image width, 1–100 (default: 25)
@@ -19,31 +16,8 @@
  */
 
 // ─── Configuration ────────────────────────────────────────────────────────────
-const OUT_WIDTH  = 1600;
-const OUT_HEIGHT = 900;
-const IMAGES_DIR = __DIR__ . '/generated-images/';
-
-// Watermark options – keys must match the values used in index.php's radio buttons.
-// Set each path to the corresponding file on your server.
-const X_WATERMARKS = [
-	'watermark1' => __DIR__ . '/watermarks/watermark1.png',
-	'watermark2' => __DIR__ . '/watermarks/watermark2.png',
-	'watermark3' => __DIR__ . '/watermarks/watermark3.png',
-];
-const WATERMARKS   = array(
-	'watermerk-prio1-cloud'        => [ 'label' => 'prio1', 'preview' => 'watermerk/watermerk-prio1-cloud.png' ],
-	'watermerk-prio2-data'         => [ 'label' => 'prio2', 'preview' => 'watermerk/watermerk-prio2-data.png' ],
-	'watermerk-prio3-ai'           => [ 'label' => 'prio3', 'preview' => 'watermerk/watermerk-prio3-ai.png' ],
-	'watermerk-prio4-burgers'      => [ 'label' => 'prio4', 'preview' => 'watermerk/watermerk-prio4-burgers.png' ],
-	'watermerk-prio5-weerbaarheid' => [
-		'label'   => 'prio5',
-		'preview' => 'watermerk/watermerk-prio5-weerbaarheid.png'
-	],
-	'watermerk-prio6-vakmanschap'  => [
-		'label'   => 'prio6',
-		'preview' => 'watermerk/watermerk-prio6-vakmanschap.png'
-	]
-);
+const MAX_WIDTH  = 1600;
+const MAX_HEIGHT = 900;
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
@@ -66,7 +40,7 @@ function loadImage( string $path, string $mime ): GdImage {
 		abort( 'Could not decode the image. Ensure it is a valid JPEG, PNG, GIF, or WebP file.' );
 	}
 
-	// Normalise EXIF orientation (JPEG only)
+	// Normalise orientation using EXIF data (JPEG only)
 	if ( function_exists( 'exif_read_data' ) && ( str_contains( $mime, 'jpeg' ) || str_contains( $mime, 'jpg' ) ) ) {
 		$exif        = @exif_read_data( $path );
 		$orientation = $exif['Orientation'] ?? 1;
@@ -78,7 +52,7 @@ function loadImage( string $path, string $mime ): GdImage {
 		};
 	}
 
-	// Convert palette / indexed images to true-colour
+	// Convert palette/non-true-colour images to true colour
 	if ( ! imageistruecolor( $img ) ) {
 		$tc = imagecreatetruecolor( imagesx( $img ), imagesy( $img ) );
 		imagealphablending( $tc, false );
@@ -94,38 +68,25 @@ function loadImage( string $path, string $mime ): GdImage {
 }
 
 /**
- * Cover-resize and centre-crop $src to exactly $outW x $outH.
- * The image is scaled up or down so that it completely fills the canvas
- * (no letterboxing), then the excess is cropped from the centre.
+ * Resize an image to fit within $maxW x $maxH, preserving aspect ratio.
  * Returns a new GdImage; destroys the original.
  */
-function coverCrop( GdImage $src, int $outW, int $outH ): GdImage {
+function resizeToFit( GdImage $src, int $maxW, int $maxH ): GdImage {
 	$srcW = imagesx( $src );
 	$srcH = imagesy( $src );
 
-	// Scale factor: use whichever axis needs the LARGER scale so both dimensions
-	// are at least as big as the output (cover behaviour, not contain).
-	$scale = max( $outW / $srcW, $outH / $srcH );
+	if ( $srcW <= $maxW && $srcH <= $maxH ) {
+		return $src; // already fits — no resize needed
+	}
 
-	$scaledW = (int) round( $srcW * $scale );
-	$scaledH = (int) round( $srcH * $scale );
+	$ratio = min( $maxW / $srcW, $maxH / $srcH );
+	$dstW  = (int) round( $srcW * $ratio );
+	$dstH  = (int) round( $srcH * $ratio );
 
-	// Crop offsets (centre the scaled image over the canvas)
-	$cropX = (int) round( ( $scaledW - $outW ) / 2 );
-	$cropY = (int) round( ( $scaledH - $outH ) / 2 );
-
-	$dst = imagecreatetruecolor( $outW, $outH );
+	$dst = imagecreatetruecolor( $dstW, $dstH );
 	imagealphablending( $dst, false );
 	imagesavealpha( $dst, true );
-
-	// imagecopyresampled can do the scale + crop in one pass:
-	// copy from ($cropX/$scale, $cropY/$scale) in the source at the correct size
-	$srcCropX = (int) round( $cropX / $scale );
-	$srcCropY = (int) round( $cropY / $scale );
-	$srcCropW = (int) round( $outW / $scale );
-	$srcCropH = (int) round( $outH / $scale );
-
-	imagecopyresampled( $dst, $src, 0, 0, $srcCropX, $srcCropY, $outW, $outH, $srcCropW, $srcCropH );
+	imagecopyresampled( $dst, $src, 0, 0, 0, 0, $dstW, $dstH, $srcW, $srcH );
 	imagedestroy( $src );
 
 	return $dst;
@@ -133,6 +94,13 @@ function coverCrop( GdImage $src, int $outW, int $outH ): GdImage {
 
 /**
  * Overlay a watermark onto $base with per-pixel alpha + global opacity support.
+ *
+ * @param GdImage $base The base image – modified in place.
+ * @param GdImage $wm The watermark image.
+ * @param string $position center | top-left | top-right | bottom-left | bottom-right
+ * @param int $opacity 0-100
+ * @param int $padding pixels from edge (corner positions)
+ * @param int $wmScale watermark width as % of base width (1-100)
  */
 function applyWatermark(
 	GdImage $base,
@@ -147,13 +115,14 @@ function applyWatermark(
 	$wmW   = imagesx( $wm );
 	$wmH   = imagesy( $wm );
 
-	// Scale watermark proportionally to the requested percentage of output width
+	// Scale watermark proportionally
 	$targetW = (int) round( $baseW * ( $wmScale / 100 ) );
 	$targetH = (int) round( $wmH * ( $targetW / $wmW ) );
 
 	$targetW = 850;
 	$targetH = 300;
 
+	// Clamp to base image dimensions
 	if ( $targetW > $baseW ) {
 		$targetW = $baseW;
 	}
@@ -166,19 +135,22 @@ function applyWatermark(
 	imagesavealpha( $scaledWm, true );
 	imagecopyresampled( $scaledWm, $wm, 0, 0, 0, 0, $targetW, $targetH, $wmW, $wmH );
 
+	// Compute destination coordinates
 	[ $dstX, $dstY ] = match ( $position ) {
 		'center' => [ (int) ( ( $baseW - $targetW ) / 2 ), (int) ( ( $baseH - $targetH ) / 2 ) ],
 		'top-left' => [ $padding, $padding ],
 		'top-right' => [ $baseW - $targetW - $padding, $padding ],
 		'bottom-left' => [ $padding, $baseH - $targetH - $padding ],
-		default => [ $baseW - $targetW - $padding, $baseH - $targetH - $padding ],
+		default => [ $baseW - $targetW - $padding, $baseH - $targetH - $padding ], // bottom-right
 	};
 
 	imagealphablending( $base, true );
 
 	if ( $opacity >= 100 ) {
+		// Full opacity – respect per-pixel alpha directly
 		imagecopy( $base, $scaledWm, $dstX, $dstY, 0, 0, $targetW, $targetH );
 	} else {
+		// Combine global opacity with per-pixel alpha channel
 		$tmp = imagecreatetruecolor( $targetW, $targetH );
 		imagealphablending( $tmp, false );
 		imagesavealpha( $tmp, true );
@@ -186,8 +158,8 @@ function applyWatermark(
 		for ( $x = 0; $x < $targetW; $x ++ ) {
 			for ( $y = 0; $y < $targetH; $y ++ ) {
 				$colour       = imagecolorat( $scaledWm, $x, $y );
-				$alpha        = ( $colour >> 24 ) & 0x7F;
-				$pixelOpacity = 1 - ( $alpha / 127 );
+				$alpha        = ( $colour >> 24 ) & 0x7F;            // 0 = opaque, 127 = transparent
+				$pixelOpacity = 1 - ( $alpha / 127 );                // 0-1
 				$newAlpha     = (int) round( 127 - ( $pixelOpacity * ( $opacity / 100 ) * 127 ) );
 				$newAlpha     = max( 0, min( 127, $newAlpha ) );
 
@@ -216,30 +188,22 @@ if ( empty( $_FILES['image'] ) || $_FILES['image']['error'] !== UPLOAD_ERR_OK ) 
 	abort( 'No valid image uploaded. Send a file in the "image" field.' );
 }
 
-$wmKey = $_POST['watermark'] ?? '';
-if ( ! array_key_exists( $wmKey, WATERMARKS ) ) {
-	abort( 'Invalid watermark choice. Must be one of: ' . implode( ', ', array_keys( WATERMARKS ) ) . '.' );
-}
-$wmPath = WATERMARKS[ $wmKey ]['preview'];
-echo '<h1>$wmKey: ' . $wmKey . '</h1>';
-echo '<pre>';
-var_dump( $wmPath );
-echo '</pre>';
+$watermerk = isset( $_POST['watermerken'] ) ? $_POST['watermerken'][0] : '';
 
-if ( ! file_exists( $wmPath ) || ! is_readable( $wmPath ) ) {
-	abort( 'Watermark file not found on the server: ' . $wmKey, 500 );
-}
-
-// Create /images directory if it doesn't exist
-if ( ! is_dir( IMAGES_DIR ) ) {
-	if ( ! mkdir( IMAGES_DIR, 0755, true ) ) {
-		abort( 'Could not create the images/ directory. Check server permissions.', 500 );
+$path      = dirname( __FILE__ ) . "/";
+$imagepath = $path . "img/";
+$fontpath  = $path . "fonts/";
+$outpath   = $path . "posters/";
+if ( $watermerk ) {
+	$watermerk_file = $path . "watermerk/" . $watermerk . ".png";
+	if ( ! file_exists( $watermerk_file ) || ! is_readable( $watermerk_file ) ) {
+		abort( 'Watermark file not found on the server: ' . $watermerk_file, 500 );
 	}
 }
 
+
 // ─── Parameters ───────────────────────────────────────────────────────────────
 
-$title    = trim( $_POST['title'] ?? '' );
 $position = in_array( $_POST['position'] ?? '', [
 	'center',
 	'top-left',
@@ -248,41 +212,37 @@ $position = in_array( $_POST['position'] ?? '', [
 	'bottom-right'
 ], true )
 	? $_POST['position'] : 'bottom-left';
-$opacity  = max( 0, min( 100, (int) ( $_POST['opacity'] ?? 100 ) ) );
-$padding  = max( 0, min( 500, (int) ( $_POST['padding'] ?? 0 ) ) );
-$wmScale  = max( 1, min( 100, (int) ( $_POST['wm_scale'] ?? 25 ) ) );
-$quality  = max( 1, min( 100, (int) ( $_POST['quality'] ?? 85 ) ) );
+//$opacity  = max( 0, min( 100, (int) ( $_POST['opacity'] ?? 60 ) ) );
+$opacity = 100;
+$padding = max( 0, min( 500, (int) ( $_POST['padding'] ?? 0 ) ) );
+$wmScale = max( 1, min( 100, (int) ( $_POST['wm_scale'] ?? 25 ) ) );
+$quality = max( 1, min( 100, (int) ( $_POST['quality'] ?? 85 ) ) );
 
 // ─── Load images ──────────────────────────────────────────────────────────────
 
-$imageMime = mime_content_type( $_FILES['image']['tmp_name'] );
-$baseImg   = loadImage( $_FILES['image']['tmp_name'], $imageMime );
+$uploadedimage_mimetype = mime_content_type( $_FILES['image']['tmp_name'] );
+$uploadedimage          = loadImage( $_FILES['image']['tmp_name'], $uploadedimage_mimetype );
 
-$wmMime = mime_content_type( $wmPath );
-$wmImg  = loadImage( $wmPath, $wmMime );
+$watermerk_mimetype = mime_content_type( $watermerk_file );
+$watermerk_image    = loadImage( $watermerk_file, $watermerk_mimetype );
 
 // ─── Process ──────────────────────────────────────────────────────────────────
 
-$baseImg = coverCrop( $baseImg, OUT_WIDTH, OUT_HEIGHT );
-applyWatermark( $baseImg, $wmImg, $position, $opacity, $padding, $wmScale );
-imagedestroy( $wmImg );
+$uploadedimage = resizeToFit( $uploadedimage, MAX_WIDTH, MAX_HEIGHT );
+applyWatermark( $uploadedimage, $watermerk_image, $position, $opacity, $padding, $wmScale );
 
-// ─── Save to /generated-images/ ─────────────────────────────────────────────────────────
+echo '<h1>Uploaded image</h1>';
+var_dump( $uploadedimage );
 
-$filename = date( 'YmdHis' ) . '_' . bin2hex( random_bytes( 4 ) ) . '.jpg';
-$savePath = IMAGES_DIR . $filename;
+echo '<h1>watermer image</h1>';
+var_dump( $watermerk_image );
+die( 'o nee!' );
+imagedestroy( $watermerk_image );
 
-if ( ! imagejpeg( $baseImg, $savePath, $quality ) ) {
-	abort( 'Failed to save the image. Check write permissions on the images/ directory.', 500 );
-}
-imagedestroy( $baseImg );
 
-// ─── Redirect to display page ─────────────────────────────────────────────────
+// ─── Output as JPEG ───────────────────────────────────────────────────────────
 
-$query = http_build_query( [
-	'file'  => $filename,
-	'title' => $title,
-	'date'  => date( 'Y-m-d' ),
-] );
-header( 'Location: display.php?' . $query );
-exit;
+header( 'Content-Type: image/jpeg' );
+header( 'Content-Disposition: inline; filename="output.jpg"' );
+imagejpeg( $uploadedimage, null, $quality );
+imagedestroy( $uploadedimage );
