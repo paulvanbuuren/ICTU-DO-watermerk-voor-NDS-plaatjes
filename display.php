@@ -1,35 +1,18 @@
+<?php include( "common.inc.php" ); ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?= htmlspecialchars( $title ?? 'Image' ) ?></title>
+    <title><?php echo  htmlspecialchars( $title ?? 'Image' ) ?></title>
     <style>
-        *, *::before, *::after {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: #0f0f0f;
-            color: #e8e8e8;
-            min-height: 100vh;
-            display: flex;
             flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 2rem 1rem;
         }
-
         .card {
             width: 100%;
             max-width: 1600px;
-            background: #1a1a1a;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 24px 64px rgba(0, 0, 0, 0.6);
         }
 
         .card__image {
@@ -38,6 +21,7 @@
             height: auto;
             aspect-ratio: 16 / 9;
             object-fit: cover;
+            border: 4px solid silver;
         }
 
         .card__meta {
@@ -66,9 +50,6 @@
 
         .back {
             margin-top: 1.5rem;
-            font-size: 0.875rem;
-            color: #555;
-            text-decoration: none;
             transition: color 0.2s;
         }
 
@@ -76,13 +57,17 @@
             color: #aaa;
         }
     </style>
+    <link rel='stylesheet' id='theme-default-css'
+          href='https://www.digitaleoverheid.test/wp-content/themes/ictuwp-theme-rijkshuisstijl/style.css?ver=1776419538'
+          media='all'/>
+    <link href="css/style.css?v=<?php echo $version ?>" rel="stylesheet">
+
 </head>
 <body>
 <?php
 // ─── Validate query parameters ────────────────────────────────────────────────
 $imagesDir = __DIR__ . '/generated-images/';
 $file      = basename( $_GET['file'] ?? '' );
-$title     = trim( $_GET['title'] ?? '' );
 $date      = trim( $_GET['date'] ?? '' );
 
 // Sanitise: only allow our generated filenames (hex timestamp + random suffix)
@@ -92,9 +77,6 @@ if ( ! preg_match( '/^\d{14}_[0-9a-f]{8}\.jpg$/', $file ) || ! file_exists( $ima
     exit;
 }
 
-if ( $title === '' ) {
-    $title = 'Untitled';
-}
 
 // Format date nicely if it's a valid Y-m-d string
 $displayDate = '';
@@ -106,24 +88,16 @@ if ( $date !== '' ) {
 $imageSrc = 'generated-images/' . htmlspecialchars( $file );
 ?>
 <article class="card">
-    <a href="<?= $imageSrc ?>" download="<?= htmlspecialchars( $file ) ?>">
-    <img
-            class="card__image"
-            src="<?= $imageSrc ?>"
-            alt="<?= htmlspecialchars( $title ) ?>"
-            width="1600"
-            height="900"
-    >Download <?= htmlspecialchars( $file ) ?></a>
-    <div class="card__meta">
-        <h1 class="card__title"><?= htmlspecialchars( $title ) ?></h1>
-        <?php if ( $displayDate ): ?>
-            <time class="card__date" datetime="<?= htmlspecialchars( $date ) ?>">
-                <?= $displayDate ?>
-            </time>
-        <?php endif ?>
-    </div>
+    <a href="<?php echo  $imageSrc ?>" download="<?php echo  htmlspecialchars( $file ) ?>"><span class="btn">Download <?php echo  htmlspecialchars( $file ) ?></span><br>
+        <img
+                class="card__image"
+                src="<?php echo  $imageSrc ?>"
+                alt="<?php echo  htmlspecialchars( WATERMERK_TITLE ) ?>"
+                width="1600"
+                height="900"
+        ></a>
 </article>
 
-<a class="back" href="/">← Back</a>
+<p><a class="back btn" href="/">← Back</a></p>
 </body>
 </html>

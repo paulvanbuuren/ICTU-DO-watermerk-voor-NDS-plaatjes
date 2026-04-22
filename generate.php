@@ -1,4 +1,7 @@
 <?php
+include( "common.inc.php" );
+
+
 /**
  * generate.php
  * Accepts an uploaded image, resizes & centre-crops it to exactly 1600x900,
@@ -25,25 +28,6 @@ const IMAGES_DIR = __DIR__ . '/generated-images/';
 
 // Watermark options – keys must match the values used in index.php's radio buttons.
 // Set each path to the corresponding file on your server.
-const X_WATERMARKS = [
-	'watermark1' => __DIR__ . '/watermarks/watermark1.png',
-	'watermark2' => __DIR__ . '/watermarks/watermark2.png',
-	'watermark3' => __DIR__ . '/watermarks/watermark3.png',
-];
-const WATERMARKS   = array(
-	'watermerk-prio1-cloud'        => [ 'label' => 'prio1', 'preview' => 'watermerk/watermerk-prio1-cloud.png' ],
-	'watermerk-prio2-data'         => [ 'label' => 'prio2', 'preview' => 'watermerk/watermerk-prio2-data.png' ],
-	'watermerk-prio3-ai'           => [ 'label' => 'prio3', 'preview' => 'watermerk/watermerk-prio3-ai.png' ],
-	'watermerk-prio4-burgers'      => [ 'label' => 'prio4', 'preview' => 'watermerk/watermerk-prio4-burgers.png' ],
-	'watermerk-prio5-weerbaarheid' => [
-		'label'   => 'prio5',
-		'preview' => 'watermerk/watermerk-prio5-weerbaarheid.png'
-	],
-	'watermerk-prio6-vakmanschap'  => [
-		'label'   => 'prio6',
-		'preview' => 'watermerk/watermerk-prio6-vakmanschap.png'
-	]
-);
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
@@ -217,10 +201,10 @@ if ( empty( $_FILES['image'] ) || $_FILES['image']['error'] !== UPLOAD_ERR_OK ) 
 }
 
 $wmKey = $_POST['watermark'] ?? '';
-if ( ! array_key_exists( $wmKey, WATERMARKS ) ) {
+if ( ! array_key_exists( $wmKey, $watermarks ) ) {
 	abort( 'Invalid watermark choice. Must be one of: ' . implode( ', ', array_keys( WATERMARKS ) ) . '.' );
 }
-$wmPath = WATERMARKS[ $wmKey ]['preview'];
+$wmPath = $watermarks[ $wmKey ]['preview'];
 echo '<h1>$wmKey: ' . $wmKey . '</h1>';
 echo '<pre>';
 var_dump( $wmPath );

@@ -1,71 +1,238 @@
-body, .panel-default {
-  background: black;
-  color: white;
-  font-family: TimesNewRoman, Times New Roman, Times, Baskerville, Georgia, serif;
-}
-.starter-template {
-  padding: 40px 15px;
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-img {
-  max-width: 100%;
+:root {
+  --color-groen_vol:           #39870c;
+  --color-donkerblauw_vol:     #01689b;
 }
 
-a {
-  color: white;
-  text-decoration: none;
-  
-  &:hover,
-  &:active,
-  &:focus {
-    color: white;
-    text-decoration: underline;
-  }
+body {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1rem;
+  color: black;
 }
 
 .panel {
-  border-style: none;
+  width: 100%;
+  max-width: 640px;
+  border-radius: 1rem;
+  padding: 2.5rem 2.5rem 2rem;
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.6);
 }
 
-textarea, small {
-    font-size: 14px;
-    display: block;
-    padding: 1em;
+.panel__heading {
+  font-size: 1.5rem;
+  font-weight: 700;
 }
 
-small {
-    max-width: 300px;
-    border-left: 3px dashed #990000;
-    border-right: 3px dashed #990000;
-    background: #dfdfdf;
+.panel__sub {
+  font-size: 0.875rem;
+  margin-bottom: 2rem;
 }
 
-fieldset {
-
-  legend {
-    display: block;
-  }
-  img {
-    max-width: 200px;
-  }
-  img {
-    border: 10px solid black;
-  }
-
-  li {
-    display: flex;
-    gutter: 1rem;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    &:has(input:checked) {
-      img {
-        border-color: green;
-      }
-    }
-  }
-
+/* ── Field groups ── */
+.field {
+  margin-bottom: 1.5rem;
 }
 
-.result {
-  border: 5px solid white;
+label.field__label {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
 }
+
+input[type="text"] {
+  width: 100%;
+  background: #111;
+  border: 1px solid #2e2e2e;
+  border-radius: 8px;
+  padding: 0.65rem 0.9rem;
+  font-size: 0.95rem;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+input[type="text"]:focus {
+  border-color: #555;
+}
+
+input[type="text"]::placeholder {
+  color: #444;
+}
+
+/* ── Drop zone ── */
+.dropzone {
+  border: 2px dashed #2e2e2e;
+  border-radius: 8px;
+  padding: 2rem 1rem;
+  text-align: center;
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s;
+  position: relative;
+}
+
+.dropzone:hover,
+.dropzone.over {
+  border: 2px solid silver;
+  background: white;
+  color: black;
+}
+
+.dropzone.has-file {
+  border-color: white;
+  color: white;
+  background: var(--color-groen_vol);
+}
+
+.dropzone__label {
+  font-size: 0.9rem;
+}
+
+.dropzone__label span {
+  text-decoration: underline;
+}
+
+.dropzone__filename {
+  margin-top: 0.5rem;
+  font-size: 0.8rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#fileInput {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+  width: 100%;
+  height: 100%;
+}
+
+/* ── Watermark picker ── */
+.wm-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.75rem;
+}
+
+.wm-option {
+  position: relative;
+}
+
+.wm-option input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.wm-option__card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.9rem 0.5rem 0.75rem;
+  border: 2px dashed #2e2e2e;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+  user-select: none;
+}
+
+.wm-option input[type="radio"]:checked + .wm-option__card {
+  color: white;
+  background: var(--color-groen_vol);
+  border: 2px solid white;
+  outline: 2px solid black;
+}
+
+.wm-option__card:hover {
+  border: 2px solid silver;
+  background: white;
+  color: black;
+}
+
+.wm-option__preview {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: contain;
+  border-radius: 4px;
+  background: repeating-conic-gradient(#222 0% 25%, #2a2a2a 0% 50%) 0 0 / 12px 12px;
+  /* checkerboard shows transparency */
+}
+
+.wm-option__name {
+  font-size: 0.78rem;
+  color: black;
+  text-align: center;
+}
+
+.wm-option input[type="radio"]:checked + .wm-option__card .wm-option__name {
+  color: white;
+}
+
+/* ── Submit ── */
+.btn {
+  display: block;
+  width: 100%;
+  padding: 0.8rem;
+  background: var(--color-donkerblauw_vol);
+  color: white;
+  font-size: 0.95rem;
+  font-weight: 700;
+  border: 2px solid var(--color-donkerblauw_vol);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s, opacity 0.2s;
+  margin-top: 2rem;
+}
+
+.btn:hover {
+  background: #fff;
+}
+
+.btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+/* ── Progress overlay ── */
+.progress {
+  display: none;
+  text-align: center;
+  padding: 1rem 0 0.5rem;
+  font-size: 0.875rem;
+  color: #666;
+}
+
+.progress.visible {
+  display: block;
+}
+
+/* ── Error banner ── */
+.error-banner {
+  display: none;
+  background: #2a1010;
+  border: 1px solid #5a2020;
+  color: #f88;
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  font-size: 0.85rem;
+  margin-bottom: 1.5rem;
+}
+
+.error-banner.visible {
+  display: block;
+}
+
