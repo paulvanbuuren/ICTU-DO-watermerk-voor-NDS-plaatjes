@@ -5,7 +5,6 @@
 error_reporting( 1 );
 
 define( 'WATERMERK_TITLE', 'Watermerk generator voor Digitale Overheid' );
-define( 'WATERMERK_FORM', '<p>Upload een plaatje en kies het bijbehorende watermerk.</p><ul><li>Maximale bestandsgrootte: 8 MB</li><li>Alleen PNG, JPG en WEBP-bestanden worden ondersteund.</li></ul>' );
 define( 'WATERMERK_BACK', '&lt;&lt; nog een poster' );
 define( 'WATERMERK_OPTIONS', 'Welk watermerk wil je gebruiken?' );
 define( 'WATERMERK_LABEL_IMAGE', 'Jouw plaatje' );
@@ -19,6 +18,11 @@ define( 'WATERMERK_TITLE_LENGTH', 30 );
 define( 'rood', '000000' );
 define( 'beige', '000000' );
 define( 'bruin', '000000' );
+define( 'MAX_MB', 1 );
+define( 'WATERMERK_FORM', '<p>Upload een plaatje en kies het bijbehorende watermerk.</p><ul><li>Maximale bestandsgrootte: ' . MAX_MB . ' MB</li><li>Alleen PNG, JPG en WEBP-bestanden worden ondersteund.</li></ul>' );
+
+const MAX_UPLOAD_BYTES = MAX_MB * 1024 * 1024; // 10 MB – adjust as needed
+
 
 
 define( 'PVB_DEBUG', false );

@@ -26,6 +26,7 @@ const OUT_WIDTH  = 1600;
 const OUT_HEIGHT = 900;
 const IMAGES_DIR = __DIR__ . '/generated-images/';
 
+
 // Watermark options – keys must match the values used in index.php's radio buttons.
 // Set each path to the corresponding file on your server.
 
@@ -38,7 +39,23 @@ function abort( string $msg, int $code = 400 ): never {
 	exit;
 }
 
-function loadImage( string $path, string $mime ): GdImage {
+
+
+function loadImage(string $path, string $mime, ?int $maxBytes = null): GdImage {
+
+	// Check file size before attempting to decode (upload files only)
+	if ($maxBytes !== null) {
+		$size = filesize($path);
+		if ($size === false) {
+			abort('Could not determine the file size of the uploaded image.');
+		}
+		if ($size > $maxBytes) {
+			$limitMB  = number_format($maxBytes / 1048576, 0);
+			$actualMB = number_format($size       / 1048576, 1);
+			abort("Uploaded file is too large ({$actualMB} MB). Maximum allowed size is {$limitMB} MB.");
+		}
+	}
+
 	$img = match ( true ) {
 		str_contains( $mime, 'jpeg' ), str_contains( $mime, 'jpg' ) => imagecreatefromjpeg( $path ),
 		str_contains( $mime, 'png' ) => imagecreatefrompng( $path ),
@@ -236,7 +253,7 @@ $quality  = max( 1, min( 100, (int) ( $_POST['quality'] ?? 85 ) ) );
 // ─── Load images ──────────────────────────────────────────────────────────────
 
 $imageMime = mime_content_type( $_FILES['image']['tmp_name'] );
-$baseImg   = loadImage( $_FILES['image']['tmp_name'], $imageMime );
+$baseImg   = loadImage($_FILES['image']['tmp_name'], $imageMime, MAX_UPLOAD_BYTES);
 
 $wmMime = mime_content_type( $wmPath );
 $wmImg  = loadImage( $wmPath, $wmMime );
