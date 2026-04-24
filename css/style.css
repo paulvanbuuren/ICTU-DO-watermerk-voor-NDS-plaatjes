@@ -99,14 +99,25 @@ input[type="text"]::placeholder {
 /* ── Watermark picker ── */
 .wm-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: 1fr;
   gap: 0.75rem;
 }
+@media only screen and (min-width: 600px) {
+  .wm-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media only screen and (min-width: 950px) {
+  .wm-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
 .wm-option {
-  position: relative;
   border: 2px dashed #2e2e2e;
   border-radius: 8px;
   display: flex;
+  align-items: center;
+  gap: 0.25rem;
   padding: 0.25rem;
 }
 .wm-option:hover {
@@ -115,8 +126,8 @@ input[type="text"]::placeholder {
 }
 .wm-option input[type="radio"] {
   margin: 0.25rem;
-  width: 2rem;
-  height: 2rem;
+  width: 1rem;
+  height: 1rem;
 }
 .wm-option__card {
   flex-direction: column;
