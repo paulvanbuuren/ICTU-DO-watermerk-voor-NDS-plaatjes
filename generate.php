@@ -205,10 +205,6 @@ if ( ! array_key_exists( $wmKey, $watermarks ) ) {
 	abort( 'Invalid watermark choice. Must be one of: ' . implode( ', ', array_keys( WATERMARKS ) ) . '.' );
 }
 $wmPath = $watermarks[ $wmKey ]['preview'];
-echo '<h1>$wmKey: ' . $wmKey . '</h1>';
-echo '<pre>';
-var_dump( $wmPath );
-echo '</pre>';
 
 if ( ! file_exists( $wmPath ) || ! is_readable( $wmPath ) ) {
 	abort( 'Watermark file not found on the server: ' . $wmKey, 500 );

@@ -38,7 +38,6 @@ body {
 }
 label.field__label {
   display: block;
-  font-size: 0.8rem;
   font-weight: 600;
   letter-spacing: 0.06em;
   text-transform: uppercase;
@@ -50,7 +49,6 @@ input[type="text"] {
   border: 1px solid #2e2e2e;
   border-radius: 8px;
   padding: 0.65rem 0.9rem;
-  font-size: 0.95rem;
   outline: none;
   transition: border-color 0.2s;
 }
@@ -81,15 +79,11 @@ input[type="text"]::placeholder {
   color: white;
   background: var(--color-groen_vol);
 }
-.dropzone__label {
-  font-size: 0.9rem;
-}
 .dropzone__label span {
   text-decoration: underline;
 }
 .dropzone__filename {
   margin-top: 0.5rem;
-  font-size: 0.8rem;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -142,11 +136,8 @@ input[type="text"]::placeholder {
   width: 100%;
   aspect-ratio: 16 / 9;
   object-fit: contain;
-  border-radius: 4px;
-  /* checkerboard shows transparency */
 }
 .wm-option__name {
-  font-size: 0.78rem;
   color: black;
 }
 .wm-option input[type="radio"]:checked + .wm-option__card .wm-option__name {
@@ -159,7 +150,6 @@ input[type="text"]::placeholder {
   padding: 0.8rem;
   background: var(--color-donkerblauw_vol);
   color: white;
-  font-size: 0.95rem;
   font-weight: 700;
   border: 2px solid var(--color-donkerblauw_vol);
   border-radius: 8px;
@@ -183,7 +173,6 @@ input[type="text"]::placeholder {
   display: none;
   text-align: center;
   padding: 1rem 0 0.5rem;
-  font-size: 0.875rem;
   color: #666;
 }
 .progress.visible {
@@ -197,7 +186,6 @@ input[type="text"]::placeholder {
   color: #f88;
   border-radius: 8px;
   padding: 0.75rem 1rem;
-  font-size: 0.85rem;
   margin-bottom: 1.5rem;
 }
 .error-banner.visible {

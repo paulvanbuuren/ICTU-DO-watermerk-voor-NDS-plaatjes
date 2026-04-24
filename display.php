@@ -57,9 +57,6 @@
             color: #aaa;
         }
     </style>
-    <link rel='stylesheet' id='theme-default-css'
-          href='https://www.digitaleoverheid.test/wp-content/themes/ictuwp-theme-rijkshuisstijl/style.css?ver=1776419538'
-          media='all'/>
     <?php
     $jsfile  = 'css/style.css';
     $version = filemtime( $jsfile );

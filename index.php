@@ -7,14 +7,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo WATERMERK_TITLE ?></title>
 
-    <link rel='stylesheet' id='theme-default-css' href='https://www.digitaleoverheid.test/wp-content/themes/ictuwp-theme-rijkshuisstijl/style.css?ver=1776419538' media='all' />
 
     <?php
     $jsfile  = 'css/style.css';
     $version = filemtime( $jsfile );
     ?>
 
-    <link rel='stylesheet' id='theme-default-css' href='https://www.digitaleoverheid.test/wp-content/themes/ictuwp-theme-rijkshuisstijl/style.css?ver=1776419538' media='all' />
     <link href="css/style.css?v=<?php echo $version ?>" rel="stylesheet">
 
 </head>
