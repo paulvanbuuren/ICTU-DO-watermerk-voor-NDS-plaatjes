@@ -72,7 +72,7 @@ input[type="text"]::placeholder {
 }
 .dropzone:hover,
 .dropzone.over {
-  border: 2px solid silver;
+  border: 2px solid #2e2e2e;
   background: white;
   color: black;
 }
@@ -110,48 +110,44 @@ input[type="text"]::placeholder {
 }
 .wm-option {
   position: relative;
+  border: 2px dashed #2e2e2e;
+  border-radius: 8px;
+  display: flex;
+  padding: 0.25rem;
+}
+.wm-option:hover {
+  border: 2px solid #2e2e2e;
+  background-color: white;
 }
 .wm-option input[type="radio"] {
-  position: absolute;
-  opacity: 0;
-  width: 0;
-  height: 0;
+  margin: 0.25rem;
+  width: 2rem;
+  height: 2rem;
 }
 .wm-option__card {
-  display: flex;
   flex-direction: column;
   align-items: center;
   gap: 0.6rem;
-  padding: 0.9rem 0.5rem 0.75rem;
-  border: 2px dashed #2e2e2e;
-  border-radius: 8px;
   cursor: pointer;
   transition: border-color 0.15s, background 0.15s;
   user-select: none;
 }
-.wm-option input[type="radio"]:checked + .wm-option__card {
+.wm-option:has(input[type="radio"]:checked) {
   color: white;
-  background: var(--color-groen_vol);
+  background-color: var(--color-groen_vol);
   border: 2px solid white;
   outline: 2px solid black;
-}
-.wm-option__card:hover {
-  border: 2px solid silver;
-  background: white;
-  color: black;
 }
 .wm-option__preview {
   width: 100%;
   aspect-ratio: 16 / 9;
   object-fit: contain;
   border-radius: 4px;
-  background: repeating-conic-gradient(#222 0% 25%, #2a2a2a 0% 50%) 0 0 / 12px 12px;
   /* checkerboard shows transparency */
 }
 .wm-option__name {
   font-size: 0.78rem;
   color: black;
-  text-align: center;
 }
 .wm-option input[type="radio"]:checked + .wm-option__card .wm-option__name {
   color: white;
