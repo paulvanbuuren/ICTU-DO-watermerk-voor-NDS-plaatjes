@@ -12,18 +12,18 @@ define( 'WATERMERK_LABEL_WATERMARK', 'Watermerk' );
 define( 'WATERMERK_LABEL_DRAG_1', 'Sleep een plaatje hiernaartoe' );
 define( 'WATERMERK_LABEL_DRAG_BROWSE', 'of selecteer' );
 define( 'WATERMERK_LABEL_SUBMIT', 'Maak een nieuw plaatje' );
+define( 'WATERMERK_LABEL_PROCESSING', 'Plaatje uploaden...' );
+
 define( 'WATERMERK_READY', 'Alsjeblieft' );
 define( 'WATERMERK_TXT_LENGTH', 500 );
 define( 'WATERMERK_TITLE_LENGTH', 30 );
 define( 'rood', '000000' );
 define( 'beige', '000000' );
 define( 'bruin', '000000' );
-define( 'MAX_MB', 1 );
+define( 'MAX_MB', 8 );
 define( 'WATERMERK_FORM', '<p>Upload een plaatje en kies het bijbehorende watermerk.</p><ul><li>Maximale bestandsgrootte: ' . MAX_MB . ' MB</li><li>Alleen PNG, JPG en WEBP-bestanden worden ondersteund.</li></ul>' );
 
 const MAX_UPLOAD_BYTES = MAX_MB * 1024 * 1024; // 10 MB – adjust as needed
-
-
 
 define( 'PVB_DEBUG', false );
 

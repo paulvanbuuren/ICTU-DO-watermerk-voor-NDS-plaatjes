@@ -71,7 +71,7 @@ $defaultWm = array_key_first( $watermarks );
         </div>
 
         <button type="submit" class="btn" id="submitBtn"><?php echo WATERMERK_LABEL_SUBMIT ?></button>
-        <p class="progress" id="progress">Processing… please wait.</p>
+        <p class="progress" id="progress"><?php echo WATERMERK_LABEL_PROCESSING ?></p>
 
     </form>
 </div>
