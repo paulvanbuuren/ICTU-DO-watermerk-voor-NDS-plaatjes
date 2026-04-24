@@ -171,8 +171,12 @@ input[type="text"]::placeholder {
   transition: background 0.2s, opacity 0.2s;
   margin-top: 2rem;
 }
+.btn:visited {
+  color: white;
+}
 .btn:hover {
   background: #fff;
+  color: var(--color-donkerblauw_vol);
 }
 .btn:disabled {
   opacity: 0.35;

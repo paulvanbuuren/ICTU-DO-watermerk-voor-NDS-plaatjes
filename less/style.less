@@ -196,10 +196,15 @@ input[type="text"]::placeholder {
   cursor: pointer;
   transition: background 0.2s, opacity 0.2s;
   margin-top: 2rem;
+
+  &:visited {
+    color: white;
+  }
 }
 
 .btn:hover {
   background: #fff;
+  color: var(--color-donkerblauw_vol);
 }
 
 .btn:disabled {
