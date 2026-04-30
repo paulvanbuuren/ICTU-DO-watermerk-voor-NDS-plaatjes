@@ -42,6 +42,15 @@ label.field__label {
   letter-spacing: 0.06em;
   margin: 2rem 0 0.5rem;
 }
+ul,
+ol {
+  margin-left: 1.5rem;
+  margin: 0.5rem 0 0 1.5rem;
+}
+ul li,
+ol li {
+  margin-bottom: 0.5rem;
+}
 input[type="text"] {
   width: 100%;
   background: #111;
