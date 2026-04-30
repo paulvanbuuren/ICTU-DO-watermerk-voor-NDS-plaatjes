@@ -767,6 +767,14 @@
       "rFN" : 0,
       "uCM" : 0
     },
+    "\/robots.txt" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/robots.txt",
+      "oF" : 0
+    },
     "\/watermerk\/watermerk-prio1-cloud.png" : {
       "ft" : 32768,
       "iS" : 20076,
