@@ -40,8 +40,7 @@ label.field__label {
   display: block;
   font-weight: 600;
   letter-spacing: 0.06em;
-  text-transform: uppercase;
-  margin-bottom: 0.5rem;
+  margin: 2rem 0 0.5rem;
 }
 input[type="text"] {
   width: 100%;
@@ -60,7 +59,7 @@ input[type="text"]::placeholder {
 }
 /* ── Drop zone ── */
 .dropzone {
-  border: 2px dashed #2e2e2e;
+  border: 2px dashed #a2a2a2;
   border-radius: 8px;
   padding: 2rem 1rem;
   text-align: center;
@@ -113,7 +112,7 @@ input[type="text"]::placeholder {
   }
 }
 .wm-option {
-  border: 2px dashed #2e2e2e;
+  border: 2px dashed #a2a2a2;
   border-radius: 8px;
   display: flex;
   align-items: center;

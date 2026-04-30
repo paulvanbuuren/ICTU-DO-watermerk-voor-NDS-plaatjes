@@ -4,11 +4,11 @@
 // Report all PHP errors
 error_reporting( 1 );
 
-define( 'WATERMERK_TITLE', 'Watermerk generator voor Digitale Overheid' );
+define( 'WATERMERK_TITLE', 'Watermerk-generator voor Digitale Overheid' );
 define( 'WATERMERK_BACK', '&lt;&lt; nog een poster' );
 define( 'WATERMERK_OPTIONS', 'Welk watermerk wil je gebruiken?' );
-define( 'WATERMERK_LABEL_IMAGE', 'Jouw plaatje' );
-define( 'WATERMERK_LABEL_WATERMARK', 'Watermerk' );
+define( 'WATERMERK_LABEL_IMAGE', 'Upload plaatje' );
+define( 'WATERMERK_LABEL_WATERMARK', 'Kies een watermerk' );
 define( 'WATERMERK_LABEL_DRAG_1', 'Sleep een plaatje hiernaartoe' );
 define( 'WATERMERK_LABEL_DRAG_BROWSE', 'of selecteer' );
 define( 'WATERMERK_LABEL_SUBMIT', 'Maak een nieuw plaatje' );
