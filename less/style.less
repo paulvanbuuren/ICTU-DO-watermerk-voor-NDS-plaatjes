@@ -6,8 +6,8 @@
 }
 
 :root {
-  --color-groen_vol:           #39870c;
-  --color-donkerblauw_vol:     #01689b;
+  --color-groen_vol: #39870c;
+  --color-donkerblauw_vol: #01689b;
 }
 
 body {
@@ -52,28 +52,35 @@ label.field__label {
 ul, ol {
   margin-left: 1.5rem;
   margin: .5rem 0 0 1.5rem;
+
   li {
     margin-bottom: .5rem;
+  }
+}
+
+input {
+  border: 1px solid #2e2e2e;
+  border-radius: 8px;
+
+  &:focus-visible,
+  &:focus,
+  &:hover {
+    border-color: #555;
   }
 }
 
 input[type="text"] {
   width: 100%;
   background: #111;
-  border: 1px solid #2e2e2e;
-  border-radius: 8px;
   padding: 0.65rem 0.9rem;
-  outline: none;
   transition: border-color 0.2s;
+
+  &::placeholder {
+    color: #444;
+  }
+
 }
 
-input[type="text"]:focus {
-  border-color: #555;
-}
-
-input[type="text"]::placeholder {
-  color: #444;
-}
 
 /* ── Drop zone ── */
 .dropzone {
@@ -86,11 +93,16 @@ input[type="text"]::placeholder {
   position: relative;
 }
 
-.dropzone:hover,
-.dropzone.over {
-  border: 2px solid #2e2e2e;
-  background: white;
-  color: black;
+.dropzone {
+
+  &:focus-visible,
+  &.over,
+  &:focus,
+  &:hover {
+    border: 2px solid #2e2e2e;
+    background: white;
+    color: black;
+  }
 }
 
 .dropzone.has-file {
@@ -142,6 +154,8 @@ input[type="text"]::placeholder {
   gap: 0.25rem;
   padding: 0.25rem;
 
+  &:focus-visible,
+  &:focus,
   &:hover {
     border: 2px solid #2e2e2e;
     background-color: white;
@@ -205,9 +219,12 @@ input[type="text"]::placeholder {
   }
 }
 
-.btn:hover {
-  background: #fff;
-  color: var(--color-donkerblauw_vol);
+.btn {
+  &:focus-visible,
+  &:hover {
+    background: #fff;
+    color: var(--color-donkerblauw_vol);
+  }
 }
 
 .btn:disabled {

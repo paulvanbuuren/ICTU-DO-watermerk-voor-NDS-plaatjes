@@ -51,17 +51,20 @@ ul li,
 ol li {
   margin-bottom: 0.5rem;
 }
+input {
+  border: 1px solid #2e2e2e;
+  border-radius: 8px;
+}
+input:focus-visible,
+input:focus,
+input:hover {
+  border-color: #555;
+}
 input[type="text"] {
   width: 100%;
   background: #111;
-  border: 1px solid #2e2e2e;
-  border-radius: 8px;
   padding: 0.65rem 0.9rem;
-  outline: none;
   transition: border-color 0.2s;
-}
-input[type="text"]:focus {
-  border-color: #555;
 }
 input[type="text"]::placeholder {
   color: #444;
@@ -76,8 +79,10 @@ input[type="text"]::placeholder {
   transition: border-color 0.2s, background 0.2s;
   position: relative;
 }
-.dropzone:hover,
-.dropzone.over {
+.dropzone:focus-visible,
+.dropzone.over,
+.dropzone:focus,
+.dropzone:hover {
   border: 2px solid #2e2e2e;
   background: white;
   color: black;
@@ -128,6 +133,8 @@ input[type="text"]::placeholder {
   gap: 0.25rem;
   padding: 0.25rem;
 }
+.wm-option:focus-visible,
+.wm-option:focus,
 .wm-option:hover {
   border: 2px solid #2e2e2e;
   background-color: white;
@@ -179,6 +186,7 @@ input[type="text"]::placeholder {
 .btn:visited {
   color: white;
 }
+.btn:focus-visible,
 .btn:hover {
   background: #fff;
   color: var(--color-donkerblauw_vol);
