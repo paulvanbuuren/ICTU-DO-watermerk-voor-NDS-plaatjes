@@ -72,8 +72,9 @@ $imagesDir = __DIR__ . '/generated-images/';
 $file      = basename( $_GET['file'] ?? '' );
 $date      = trim( $_GET['date'] ?? '' );
 
+if ( ! file_exists( $imagesDir . $file ) ) {
+//if ( ! preg_match( '/^\d{14}_[0-9a-f]{8}\.jpg$/', $file ) || ! file_exists( $imagesDir . $file ) ) {
 // Sanitise: only allow our generated filenames (hex timestamp + random suffix)
-if ( ! preg_match( '/^\d{14}_[0-9a-f]{8}\.jpg$/', $file ) || ! file_exists( $imagesDir . $file ) ) {
     http_response_code( 404 );
     echo '<p style="color:#f55">Image not found.</p>';
     exit;

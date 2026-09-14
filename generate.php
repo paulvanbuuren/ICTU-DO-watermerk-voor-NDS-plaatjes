@@ -265,8 +265,26 @@ applyWatermark( $baseImg, $wmImg, $position, $opacity, $padding, $wmScale );
 imagedestroy( $wmImg );
 
 // ─── Save to /generated-images/ ─────────────────────────────────────────────────────────
+// ─── Build filename: original name + watermark flag + date ──────────────────
 
-$filename = date( 'YmdHis' ) . '_' . bin2hex( random_bytes( 4 ) ) . '.jpg';
+// Sanitize the original filename: strip extension, keep only safe chars
+$origName = pathinfo( $_FILES['image']['name'], PATHINFO_FILENAME );
+$origName = preg_replace( '/[^A-Za-z0-9_-]+/', '-', $origName );
+$origName = trim( $origName, '-' );
+if ( $origName === '' ) {
+	$origName = 'image';
+}
+// Guard against excessively long original filenames
+$origName = substr( $origName, 0, 80 );
+
+$filename = sprintf(
+	'%s_%s_%s_%s.jpg',
+	$origName,
+	$wmKey,
+	date( 'Ymd' ),
+	bin2hex( random_bytes( 4 ) ) // keeps names unique even for repeat uploads
+);
+
 $savePath = IMAGES_DIR . $filename;
 
 if ( ! imagejpeg( $baseImg, $savePath, $quality ) ) {
