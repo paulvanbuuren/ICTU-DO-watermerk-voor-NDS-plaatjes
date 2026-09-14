@@ -48,14 +48,21 @@ function writedebug( $text ) {
 
 
 $watermarks = array(
-	'watermerk-prio1-cloud'        => [ 'label'   => 'Prio 1 - Cloud',
-	                                    'preview' => 'watermerk/watermerk-prio1-cloud.png'
+	'watermerk-prio1-cloud'        => [
+		'label'   => 'Prio 1 - Cloud',
+		'preview' => 'watermerk/watermerk-prio1-cloud.png'
 	],
-	'watermerk-prio2-data'         => [ 'label' => 'Prio 2 - Data', 'preview' => 'watermerk/watermerk-prio2-data.png' ],
-	'watermerk-prio3-ai'           => [ 'label' => 'Prio 3 - AI', 'preview' => 'watermerk/watermerk-prio3-ai.png' ],
+	'watermerk-prio2-data'         => [
+		'label'   => 'Prio 2 - Data',
+		'preview' => 'watermerk/watermerk-prio2-data.png'
+	],
+	'watermerk-prio3-ai'           => [
+		'label'   => 'Prio 3 - AI',
+		'preview' => 'watermerk/watermerk-prio3-ai.png'
+	],
 	'watermerk-prio4-burgers'      => [
 		'label'   => 'Prio 4 - Burgers en buitenlui',
-		'preview' => 'watermerk/watermerk-prio4-burgers.png'
+		'preview' => 'watermerk/watermerk-prio4-burgers-2.png'
 	],
 	'watermerk-prio5-weerbaarheid' => [
 		'label'   => 'Prio 5 - Digitale weerbaarheid',
